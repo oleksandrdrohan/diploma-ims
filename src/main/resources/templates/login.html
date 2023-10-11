@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Spring Security Example</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    form {
+      text-align: center;
+      border: 1px solid #ccc;
+      padding: 20px;
+      background-color: #f9f9f9;
+      max-width: 400px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+<form th:action="@{/login}" method="post">
+  <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+  <div class="form-floating">
+    <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Login"/>
+    <label for="floatingInput">Login</label>
+  </div>
+  <div class="form-floating">
+    <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password"/>
+    <label for="floatingPassword">Password</label>
+    <div th:if="${param.error}" class="alert alert-danger">
+      Invalid login and/or password.
+    </div>
+    <div th:if="${param.logout}" class="alert alert-success">
+      You have been logged out.
+    </div>
+  </div>
+  <br>
+  <div><input class="btn btn-primary w-100 py-2" type="submit" value="Sign In"/></div>
+  <br>
+  <a href="/registration" class="btn btn-primary w-100 py-2">Registration</a>
+</form>
+</body>
+</html>

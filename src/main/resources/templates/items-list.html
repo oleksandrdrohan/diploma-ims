@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Items list</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="~{blocks/header :: header}"/>
+<h2 class="display-4 fw-normal text-body-emphasis" style="text-align: center;">Items list</h2>
+<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+    <div class="mb-3">
+        <form id="searchForm">
+            <input type="text" id="articleInput" placeholder="Enter article for search">
+            <button class="btn btn-primary btn-sm" type="submit">Search</button>
+        </form>
+    </div>
+</div>
+<script>
+    document.getElementById("searchForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const articleInput = document.getElementById("articleInput").value;
+        const url = "/item/" + encodeURIComponent(articleInput);
+
+        window.location.href = url;
+    });
+</script>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col"></th>
+        <th scope="col">Id</th>
+        <th scope="col">Article</th>
+        <th scope="col">Item Name</th>
+        <th scope="col">Color</th>
+        <th scope="col">Characteristic</th>
+        <th scope="col">Cost</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Is Available</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider" id="itemTableBody">
+    <tr th:each="item : ${items}">
+        <td><input type="checkbox" class="itemCheckbox" name="itemIds" th:value="${item.id}"></td>
+        <td th:text="${item.id}"></td>
+        <td>
+            <a th:href="@{'/item/' + ${item.article}}" th:text="${item.article}"/>
+        </td>
+        <td th:text="${item.itemName}"></td>
+        <td th:text="${item.color}"></td>
+        <td th:text="${item.characteristics}"></td>
+        <td th:text="${item.cost}"></td>
+        <td th:text="${item.quantity}"></td>
+        <td th:text="${item.ias}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${itemsPage.totalPages > 1}">
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item" th:if="${itemsPage.hasPrevious()}">
+                <a class="page-link" th:href="@{/items-list(page=0)}" tabindex="-1">First</a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, itemsPage.totalPages - 1)}"
+                th:class="${i == itemsPage.number} ? 'active page-item' : 'page-item'">
+                <a class="page-link" th:href="@{/items-list(page=${i})}" th:text="${i + 1}"></a>
+            </li>
+            <li class="page-item" th:if="${itemsPage.hasNext()}">
+                <a class="page-link" th:href="@{/items-list(page=${itemsPage.totalPages - 1})}">Last</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div>
+    <form id="deleteItemsForm" th:action="@{/delete-items}" method="post">
+        <button type="button" class="btn btn-primary" onclick="window.location.href='/add'">Add item</button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='/items-excel-export'">Export to excel</button>
+        <button id="deleteSelectedButton" type="submit" class="btn btn-danger">Delete selected</button>
+    </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/actions.js}"></script>
+</body>
+</html>

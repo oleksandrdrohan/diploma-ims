@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order list</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="~{blocks/header :: header}"/>
+<h2 class="display-4 fw-normal text-body-emphasis" style="text-align: center;">Orders list</h2>
+<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+    <div class="mb-3"> <form id="searchForm">
+        <input type="text" id="cnnInput" placeholder="Enter CNN for search">
+        <button class="btn btn-primary btn-sm" type="submit">Search</button>
+    </form>
+    </div>
+</div>
+<script>
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const cnnInput = document.getElementById("cnnInput").value;
+        const url = "/order/" + encodeURIComponent(cnnInput);
+
+        window.location.href = url;
+    });
+</script>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">CNN</th>
+        <th scope="col">Driver name</th>
+        <th scope="col">Total amount of items</th>
+        <th scope="col">Incoming date</th>
+        <th scope="col">Order status</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider" id="orderTableBody">
+    <tr th:each="order : ${orders}">
+        <td>
+            <a th:href="@{'/order/' + ${order.consignmentNoteNumber}}" th:text="${order.consignmentNoteNumber}"/>
+        </td>
+        <td th:text="${order.driverName}"></td>
+        <td th:text="${order.totalAmountOfItems}"></td>
+        <td th:text="${order.incomingDate}"></td>
+        <td th:text="${order.status}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${ordersPage.totalPages > 1}">
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-order" th:if="${ordersPage.hasPrevious()}">
+                <a class="page-link" th:href="@{/orders-list(page=0)}" tabindex="-1">First</a>
+            </li>
+            <li class="page-order" th:each="i : ${#numbers.sequence(0, ordersPage.totalPages - 1)}"
+                th:class="${i == ordersPage.number} ? 'active page-item' : 'page-item'">
+                <a class="page-link" th:href="@{/orders-list(page=${i})}" th:text="${i + 1}"></a>
+            </li>
+            <li class="page-order" th:if="${ordersPage.hasNext()}">
+                <a class="page-link" th:href="@{/orders-list(page=${ordersPage.totalPages - 1})}">Last</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/actions.js}"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="~{blocks/header :: header}"/>
+<div class="container">
+    <h1>About IMS</h1>
+    <p>This site is my diploma project and my first "big" project.
+        This is a prototype of a very simplified warehouse and order management system.
+    It is designed for a small warehouse for 4-6 people. Which I have worked on in the past.</p>
+    <p><strong>To write this app I used: </strong></p>
+    <ul>
+        <li>Java</li>
+        <li>Spring IoC</li>
+        <li>Spring MVC</li>
+        <li>Spring Security</li>
+        <li>Spring Data JPA</li>
+        <li>Spring Boot</li>
+        <li>Thymeleaf</li>
+        <li>MySQL</li>
+        <li>a little bit of JS</li>
+    </ul>
+    <p><strong>The basic mechanics of a web application are:</strong></p>
+    <ol>
+        <li>CRUD operations with items.</li>
+        <li>Pagination.</li>
+        <li>Ability to create an order for stock replenishment or shipment.</li>
+        <li>Authorization through Spring Security.</li>
+        <li>Search of products and orders.</li>
+        <li>Viewing the update of the number of items.</li>
+        <li>Automatic replenishment/shipment of items specified in the order (change status).</li>
+    </ol>
+    <p>The logic of this application is as follows. The manager or head of the warehouse adds goods that appear in the warehouse or will arrive in the future.
+        Then they create an order, if it is a request for replenishment - then when the machine with the goods arrives,
+        the workers will check it and change its status, which will automatically update the quantity of the goods. The same with the shipment.</p>
+    <p><strong>IMPORTANT!!!</strong> </p>
+    <p>To use the ordering functionality, you need to create an item to begin with! According to my logic, you need to add items first, and then replenish them.
+        That is, if you know that some product will arrive, first add it and set the quantity = 0.</p>
+</div>
+</body>
+</html>

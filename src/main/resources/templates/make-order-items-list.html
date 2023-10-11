@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Item list for orders</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="~{blocks/header :: header}"/>
+<h2 class="display-4 fw-normal text-body-emphasis" style="text-align: center;">Please collect items for order</h2>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col"></th>
+    <th scope="col">Id</th>
+    <th scope="col">Article</th>
+    <th scope="col">Item Name</th>
+    <th scope="col">Color</th>
+    <th scope="col">Characteristic</th>
+    <th scope="col">Cost</th>
+    <th scope="col">Quantity</th>
+    <th scope="col">Is Available</th>
+  </tr>
+  </thead>
+  <tbody class="table-group-divider" id="itemTableBody">
+  <tr th:each="item : ${items}">
+    <td><input type="checkbox" class="itemCheckbox" name="itemIds" th:value="${item.id}"></td>
+    <td th:text="${item.id}"></td>
+    <td th:text="${item.article}"></td>
+    <td th:text="${item.itemName}"></td>
+    <td th:text="${item.color}"></td>
+    <td th:text="${item.characteristics}"></td>
+    <td th:text="${item.cost}"></td>
+    <td th:text="${item.quantity}"></td>
+    <td th:text="${item.ias}"></td>
+  </tr>
+  </tbody>
+</table>
+
+<div>
+  <form id="collectItemsForm" th:action="@{/collect-items}" method="post">
+    <button id="collectSelectedButton" type="submit" class="btn btn-primary">Collect</button>
+  </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/actions.js}"></script>
+</body>
+</html>
