@@ -74,7 +74,7 @@ public class ItemController {
     public String listItems(
             Model model,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
+            @RequestParam(defaultValue = "10") int size) {
         Page<Item> itemsPage = itemService.getItemsPage(page, size);
         model.addAttribute("items", itemsPage.getContent());
         model.addAttribute("itemsPage", itemsPage);
@@ -128,7 +128,7 @@ public class ItemController {
     @GetMapping("/item/{article}")
     public String itemDetails(@PathVariable("article") String article, Model model,
                               @RequestParam(defaultValue = "0") int page,
-                              @RequestParam(defaultValue = "4") int size) {
+                              @RequestParam(defaultValue = "3") int size) {
 
         Item item = itemService.findByArticle(article);
         Page<ItemUpdateNotes> itemsUpdateNotesPage = itemUpdateNotesService.getItemNotesPage(page, size, article);

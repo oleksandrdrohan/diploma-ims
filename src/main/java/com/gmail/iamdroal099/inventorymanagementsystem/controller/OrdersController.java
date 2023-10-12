@@ -83,7 +83,7 @@ public class OrdersController {
 
 
     @PostMapping("/make-order")
-    public String createOrder(@ModelAttribute("order") Order order, Model model) {
+    public String createOrder(@ModelAttribute("order") Order order) {
 
         Order orderInSQL = orderService.findOrderByCNN(order.getConsignmentNoteNumber());
 
@@ -156,7 +156,7 @@ public class OrdersController {
     public String listOrders(
             Model model,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
+            @RequestParam(defaultValue = "10") int size) {
         Page<Order> ordersPage = orderService.getOrderPage(page, size);
         model.addAttribute("orders", ordersPage.getContent());
         model.addAttribute("ordersPage", ordersPage);

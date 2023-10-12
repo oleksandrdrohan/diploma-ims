@@ -30,16 +30,24 @@
     <h2 class="display-4 fw-normal text-body-emphasis" style="text-align: center;">Make order</h2>
     <form action="/make-order" method="post" th:object="${order}">
         Enter Consignment Note Number (CNN):<br>
-        <input type="text" th:field="*{consignmentNoteNumber}" placeholder="CNN">
+        <label>
+            <input type="text" th:field="*{consignmentNoteNumber}" placeholder="CNN">
+        </label>
         <br>
         Enter driver name:<br>
-        <input type="text" th:field="*{driverName}" placeholder="Driver name">
+        <label>
+            <input type="text" th:field="*{driverName}" placeholder="Driver name">
+        </label>
         <br>
-        Enter driver name:<br>
-        <input type="text" th:field="*{carNumber}" placeholder="Car number">
+        Enter car number:<br>
+        <label>
+            <input type="text" th:field="*{carNumber}" placeholder="Car number">
+        </label>
         <br>
         Enter incoming date:<br>
-        <input type="text" th:field="*{incomingDate}" placeholder="Incoming date">
+        <label>
+            <input type="text" th:field="*{incomingDate}" placeholder="Incoming date">
+        </label>
         <br>
         <label>
             <input type="radio" th:field="*{type}" th:value="SUPPLY"> Supply
@@ -74,7 +82,9 @@
             <td th:text="${item.quantity}"></td>
             <td th:text="${item.ias}"></td>
             <td>
-                <input type="text" class="quantity-for-order" th:data-item-id="${item.id}" th:id="'quantityForOrder_' + ${item.id}" placeholder="Quantity for Order">
+                <label>
+                    <input type="text" class="quantity-for-order" th:data-item-id="${item.id}" th:id="'quantityForOrder_' + ${item.id}" placeholder="Quantity for Order">
+                </label>
             </td>
         </tr>
         </tbody>
