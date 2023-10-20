@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang = "en" xmlns:th="http://www.thymeleaf.org">
+<html lang = "en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>Add new item</title>
@@ -25,9 +25,9 @@
     </style>
 </head>
 <body>
-<header th:insert="~{blocks/header :: header}"/>
 <script type="text/javascript" th:src="@{/js/actions.js}"></script>
 <div class="center-form">
+    <header th:insert="~{blocks/header :: header}"/>
 <form action="/add" method="post" onsubmit="return validateForm()" th:object="${item}">
     <div th:if="${error}" class="alert alert-danger">
         Item already in storage!
@@ -35,32 +35,32 @@
     <br>
     Enter item article:<br>
     <label>
-    <input type="text" th:field="*{item.article}" placeholder="Article">
+    <input type="text" th:field="*{article}" placeholder="Article">
     </label>
     <br>
     Enter item name:<br>
     <label>
-    <input type="text" th:field="*{item.itemName}" placeholder="Item name">
+    <input type="text" th:field="*{itemName}" placeholder="Item name">
     </label>
     <br>
     Enter item color:<br>
     <label>
-    <input type="text" th:field="*{item.color}" placeholder="Color">
+    <input type="text" th:field="*{color}" placeholder="Color">
     </label>
     <br>
     Enter item characteristic:<br>
     <label>
-    <input type="text" th:field="*{item.characteristics}" placeholder="Short describe of item">
+    <input type="text" th:field="*{characteristics}" placeholder="Short describe of item">
     </label>
     <br>
     Enter item cost:<br>
     <label>
-    <input type="text" th:field="*{item.cost}" placeholder="Cost">
+    <input type="text" th:field="*{cost}" placeholder="Cost">
     </label>
     <br>
     Enter item quantity:<br>
     <label>
-    <input type="text" th:field="*{item.quantity}" placeholder="Quantity">
+    <input type="text" th:field="*{quantity}" placeholder="Quantity">
     </label>
     <br><br>
     <div th:if="${error_fields}" class="alert alert-danger">
