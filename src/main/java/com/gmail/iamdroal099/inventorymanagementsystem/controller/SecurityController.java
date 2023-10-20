@@ -28,7 +28,7 @@ public class SecurityController {
     @GetMapping("/registration")
     public String showRegistrationPage(Model model){
         model.addAttribute("user", new User());
-        return "/registration";
+        return "registration";
     }
 
     @PostMapping("/registration")

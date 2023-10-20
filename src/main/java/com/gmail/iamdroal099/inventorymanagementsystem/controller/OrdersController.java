@@ -179,7 +179,7 @@ public class OrdersController {
             model.addAttribute("order", order);
             return "order";
         } else {
-            return "/order-not-found";
+            return "order-not-found";
         }
     }
 
@@ -220,10 +220,10 @@ public class OrdersController {
                 model.addAttribute("order", order);
                 return "order";
             } else {
-                return "/you-cant-change-order-status";
+                return "you-cant-change-order-status";
             }
         } else {
-            return "/order-not-found";
+            return "order-not-found";
         }
     }
 
@@ -248,7 +248,7 @@ public class OrdersController {
     public String showUpdateOrderPage(@PathVariable("id") Long id, Model model) {
         Order order = orderService.findById(id).orElseThrow();
         model.addAttribute("order", order);
-        return "/update-order";
+        return "update-order";
     }
 
     @PostMapping("/update-order/{id}")

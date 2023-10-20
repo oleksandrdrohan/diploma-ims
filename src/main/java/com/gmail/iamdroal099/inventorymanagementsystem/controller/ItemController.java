@@ -35,7 +35,7 @@ public class ItemController {
     @GetMapping("add")
     public String showAddItemPage(Model model) {
         model.addAttribute("item", new Item());
-        return "/add";
+        return "add";
     }
 
     @PostMapping("add")
@@ -44,7 +44,7 @@ public class ItemController {
 
         if (itemInSQL != null) {
             model.addAttribute("error", "Item already in storage");
-            return "/add";
+            return "add";
         } else {
 
             Item newItem = new Item();
@@ -61,7 +61,7 @@ public class ItemController {
                 newItem.getCost() == null ||
                 newItem.getQuantity() == null){
                 model.addAttribute("error_fields", "You must fill the fields");
-                return "/add";
+                return "add";
             }
             itemService.areInStock(newItem);
 
@@ -139,7 +139,7 @@ public class ItemController {
             model.addAttribute("itemsUpdateNotesPage", itemsUpdateNotesPage);
             return "item";
         } else {
-            return "/item-not-found";
+            return "item-not-found";
         }
     }
 
