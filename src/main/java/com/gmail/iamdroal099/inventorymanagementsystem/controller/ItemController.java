@@ -99,7 +99,7 @@ public class ItemController {
             model.addAttribute("item", item);
         }
 
-        return "/update";
+        return "update";
     }
 
     @PostMapping("/update-item/{id}")
