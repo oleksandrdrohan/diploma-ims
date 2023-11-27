@@ -1,7 +1,6 @@
 package com.gmail.iamdroal099.inventorymanagementsystem.service;
 
 import com.gmail.iamdroal099.inventorymanagementsystem.model.entity.Order;
-import com.gmail.iamdroal099.inventorymanagementsystem.model.entity.SelectedItems;
 import com.gmail.iamdroal099.inventorymanagementsystem.repo.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
