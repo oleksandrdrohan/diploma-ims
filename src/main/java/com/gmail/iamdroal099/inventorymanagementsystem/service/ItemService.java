@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import java.util.List;
@@ -46,20 +47,24 @@ public class ItemService {
         itemRepository.saveAll(items);
     }
 
+    @Transactional(readOnly = true)
     public Item findByArticleAndColorAndItemName(Item item) {
         return itemRepository.findItemByArticleAndColorAndItemName(item.getArticle(), item.getColor(), item.getItemName());
     }
 
+    @Transactional(readOnly = true)
     public Page<Item> getItemsPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return itemRepository.findAll(pageable);
     }
 
+    @Transactional(readOnly = true)
     public Item findById(Long id){
         return itemRepository.findById(id).orElseThrow();
     }
 
 
+    @Transactional
     public Item areInStock(Item item) {
         if (item.getQuantity() > 0) {
             item.setIas(ItemAvailableStatus.IN_STOCK);
@@ -69,6 +74,7 @@ public class ItemService {
         return item;
     }
 
+    @Transactional
     public void changeQuantityInStockForSupply(Item item, Integer supplyQuantity){
         String oldQuantityInfo = item.getQuantity().toString();
         Integer newQuantity = item.getQuantity() + supplyQuantity;
@@ -79,6 +85,7 @@ public class ItemService {
         itemUpdateNotesService.createUpdateNote(item, oldQuantityInfo, newQuantity.toString());
     }
 
+    @Transactional
     public void changeQuantityInStockForShipment(Item item, Integer shipmentQuantity){
         String oldQuantityInfo = item.getQuantity().toString();
         Integer newQuantity = item.getQuantity() - shipmentQuantity;
@@ -89,10 +96,12 @@ public class ItemService {
         itemUpdateNotesService.createUpdateNote(item, oldQuantityInfo, newQuantity.toString());
     }
 
+    @Transactional(readOnly = true)
     public Item findByArticle(String article) {
         return itemRepository.findItemByArticle(article);
     }
 
+    @Transactional(readOnly = true)
     public List<Item>  findAllItems(){
         return itemRepository.findAll();
     }

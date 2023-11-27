@@ -28,15 +28,18 @@ public class OrderService {
         orderRepository.save(newOrder);
     }
 
+    @Transactional(readOnly = true)
     public Order findOrderByCNN(String cnn){
         return orderRepository.findOrderByConsignmentNoteNumber(cnn);
     }
 
+    @Transactional(readOnly = true)
     public Page<Order> getOrderPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return orderRepository.findAll(pageable);
     }
 
+    @Transactional(readOnly = true)
     public Optional<Order> findById(Long orderId) {
         return orderRepository.findById(orderId);
     }

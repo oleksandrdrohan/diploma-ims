@@ -30,6 +30,7 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Transactional(readOnly = true)
     public boolean isUserExists(String login) {
         Optional<User> user = userRepository.findByLogin(login);
         return user.isPresent();

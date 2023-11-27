@@ -18,10 +18,12 @@ public class TokenService {
     }
 
 
+    @Transactional(readOnly = true)
     public Token getByTokenName(String tokenName){
         return tokenRepository.findByTokenName(tokenName);
     }
 
+    @Transactional(readOnly = true)
     public boolean isValidToken(String tokenName) {
         Token token = getByTokenName(tokenName);
 

@@ -41,6 +41,7 @@ public class ItemUpdateNotesService {
 
     }
 
+    @Transactional(readOnly = true)
     public Page<ItemUpdateNotes> getItemNotesPage(int page, int size, String article) {
         Item item = itemRepository.findItemByArticle(article);
         Pageable pageable = PageRequest.of(page, size);

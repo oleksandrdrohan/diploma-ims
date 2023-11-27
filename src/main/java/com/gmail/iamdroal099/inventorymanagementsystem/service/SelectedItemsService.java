@@ -27,6 +27,7 @@ public class SelectedItemsService {
         selectedItemsRepository.delete(selectedItems);
     }
 
+    @Transactional(readOnly = true)
     public SelectedItems getLastSelectedItem(){
         return selectedItemsRepository.findLatestSelectedItems();
     }
