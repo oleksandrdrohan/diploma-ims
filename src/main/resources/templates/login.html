@@ -1,29 +1,13 @@
 <!DOCTYPE html>
-<html lang = "en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html lang = "en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Spring Security Example</title>
+  <meta charset="UTF-8"/>
+  <title>Login</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    form {
-      text-align: center;
-      border: 1px solid #ccc;
-      padding: 20px;
-      background-color: #f9f9f9;
-      max-width: 400px;
-      width: 100%;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" th:href="@{/js/css/sec.css}" />
 </head>
 <body>
-<form th:action="@{/login}" method="post">
+<form th:action="@{/login}" method="post" >
   <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
   <div class="form-floating">
     <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Login"/>

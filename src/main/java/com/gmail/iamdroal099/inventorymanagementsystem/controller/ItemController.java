@@ -54,12 +54,7 @@ public class ItemController {
             newItem.setCharacteristics(item.getCharacteristics());
             newItem.setCost(item.getCost());
             newItem.setQuantity(item.getQuantity());
-            if (newItem.getArticle() == null ||
-                newItem.getItemName() == null ||
-                newItem.getColor() == null ||
-                newItem.getCharacteristics() == null ||
-                newItem.getCost() == null ||
-                newItem.getQuantity() == null){
+            if (isItemFieldsError(newItem)){
                 model.addAttribute("error_fields", "You must fill the fields");
                 return "add";
             }
@@ -151,28 +146,37 @@ public class ItemController {
     }
 
     @GetMapping("/items-excel-export")
-    public ResponseEntity<byte[]> exportItemsToExcel() {
-        try {
-            List<Item> itemsToExport = itemService.findAllItems();
+    public ResponseEntity<byte[]> exportItemsToExcel() throws IOException {
+        List<Item> itemsToExport = itemService.findAllItems();
 
-            ExcelItemExport excelItemExport = new ExcelItemExport(itemsToExport);
+        ExcelItemExport excelItemExport = new ExcelItemExport(itemsToExport);
 
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            excelItemExport.generate(outputStream);
-            byte[] excelData = outputStream.toByteArray();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        excelItemExport.generate(outputStream);
+        byte[] excelData = outputStream.toByteArray();
 
-            outputStream.close();
+        outputStream.close();
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-            headers.setContentDispositionFormData("attachment", "exported_items_list.xlsx");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", "exported_items_list.xlsx");
 
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .body(excelData);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error exporting data".getBytes());
-        }
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(excelData);
     }
+
+    public boolean isItemFieldsError(Item item){
+        return item.getArticle() == null ||
+                item.getItemName() == null ||
+                item.getColor() == null ||
+                item.getCharacteristics() == null ||
+                item.getCost() == null ||
+                item.getQuantity() == null ||
+                item.getArticle().isEmpty() ||
+                item.getItemName().isEmpty() ||
+                item.getColor().isEmpty() ||
+                item.getCharacteristics().isEmpty();
+    }
+
 }

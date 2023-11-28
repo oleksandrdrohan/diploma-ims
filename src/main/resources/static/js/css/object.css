@@ -1,0 +1,18 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.details {
+    border: 1px solid #ccc;
+    padding: 70px;
+    width: 800px;
+    margin: 0 auto;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.value {
+    margin-left: 30px;
+}

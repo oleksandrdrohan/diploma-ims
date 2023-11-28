@@ -44,7 +44,7 @@ public class OrdersController {
         SelectedItems selectedItems = selectedItemsService.getLastSelectedItem();
         Token tokenFromSI = tokenService.getByTokenName(selectedItems.getToken().getTokenName());
         if (tokenFromSI != null && tokenService.isValidToken(tokenFromSI.getTokenName())) {
-            if (Objects.equals(tokenFromSI.getTokenName(), token)) {
+            if (tokenFromSI.getTokenName().equals(token)) {
                 List<Long> itemIds = selectedItems.getSelectedItemsForOrder();
                 for (Long id : itemIds) {
                     Item item = itemService.findById(id);
@@ -106,10 +106,7 @@ public class OrdersController {
             newOrder.setIncomingDate(order.getIncomingDate());
             newOrder.setCarNumber(order.getCarNumber());
             newOrder.setConsignmentNoteNumber(order.getConsignmentNoteNumber());
-            if (newOrder.getConsignmentNoteNumber() == null ||
-                    newOrder.getDriverName() == null ||
-                    newOrder.getIncomingDate() == null ||
-                    newOrder.getCarNumber() == null) {
+            if (isOrderFieldsError(newOrder)) {
                 return "redirect:/order-field-error";
             }
             newOrder.setType(order.getType());
@@ -288,6 +285,13 @@ public class OrdersController {
         selectedItemsService.delete(si);
         tokenService.delete(token);
         return "redirect:/orders-list";
+    }
+
+    public boolean isOrderFieldsError(Order order){
+        return order.getConsignmentNoteNumber() == null ||
+                order.getDriverName() == null ||
+                order.getIncomingDate() == null ||
+                order.getCarNumber() == null;
     }
 
 }
